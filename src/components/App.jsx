@@ -22,7 +22,7 @@ class App extends Component {
   };
 
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.query !== this.state.query) {
+    if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
       this.setState({ images: [], page: 1, isLastPage: false }, () => {
         this.fetchImages();
       });
@@ -52,7 +52,6 @@ class App extends Component {
 
       this.setState(prevState => ({
         images: [...prevState.images, ...modifiedHits],
-        page: prevState.page + 1,
         isLastPage: prevState.images.length + modifiedHits.length >= totalHits,
       }));
     } catch (error) {
@@ -79,6 +78,12 @@ class App extends Component {
     document.body.style.overflow = 'auto';
   };
 
+  incrementPage = () => {
+  this.setState(prevState => ({
+    page: prevState.page + 1
+  }));
+};
+
   render() {
     const { images, isLoading, error, showModal, selectedImage, isLastPage } = this.state;
 
@@ -94,7 +99,7 @@ class App extends Component {
         {isLoading && <Loader />}
 
         {!isLoading && images.length > 0 && !isLastPage && (
-          <Button onClick={this.fetchImages} />
+          <Button onClick={this.incrementPage} />
         )}
 
         {showModal && (

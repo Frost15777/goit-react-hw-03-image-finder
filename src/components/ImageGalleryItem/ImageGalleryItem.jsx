@@ -3,12 +3,8 @@ import PropTypes from 'prop-types';
 import { ImageGalleryLi, ImageGalleryItemImg } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ image, onItemClick }) => {
-  const handleClick = () => {
-    onItemClick(image);
-  };
-
   return (
-    <ImageGalleryLi onClick={handleClick}>
+    <ImageGalleryLi onClick={() => onItemClick(image)}>
       <ImageGalleryItemImg src={image.webformatURL} alt={image.tags} />
     </ImageGalleryLi>
   );
