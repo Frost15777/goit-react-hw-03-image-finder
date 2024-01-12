@@ -23,9 +23,7 @@ class App extends Component {
 
   componentDidUpdate(_prevProps, prevState) {
     if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
-      this.setState({ images: [], page: 1, isLastPage: false }, () => {
         this.fetchImages();
-      });
     }
   }
 
